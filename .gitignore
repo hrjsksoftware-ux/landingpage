@@ -1,0 +1,8 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# original un-renamed source exports (clean copies are committed instead)
+ChatGPT Image*.png
+screenshot.jpg
