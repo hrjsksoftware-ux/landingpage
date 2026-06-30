@@ -85,6 +85,7 @@
   .hero{position:relative;overflow:hidden}
   .hero-bg{width:100%;height:auto;display:block}
   .hero-bg.desktop{display:block} .hero-bg.mobile{display:none}
+  .hero-art{display:none}   /* cropped mobile illustration band; shown only on small screens */
   .hero-copy{position:absolute;inset:0;display:flex;align-items:center}
   .hero-copy .wrap{width:100%}
   .hero-inner{max-width:46%}
@@ -271,10 +272,15 @@
   }
   /* mobile: switch hero image + stack copy ABOVE image for readability */
   @media(max-width:720px){
-    .hero{padding-bottom:0}
-    .hero-bg.desktop{display:none} .hero-bg.mobile{display:block}
-    .hero-copy{position:static;display:block;padding:36px 0 6px}
+    /* stack: copy on top (text first), illustration below — no overlap, nothing hidden.
+       mobile image is shown as a cropped band (its bottom tiles) so there's no big empty gap. */
+    .hero{display:flex;flex-direction:column;padding:30px 0 0}
+    .hero-copy{position:static;order:1;display:block}
     .hero-inner{max-width:100%}
+    .hero-actions{margin-top:24px}
+    .hero-bg{display:none}            /* hide the raw <img>; use a cropped background instead */
+    .hero-art{order:2;display:block;width:100%;height:300px;margin-top:18px;
+      background:url(hero-mobile.png) center 78% / cover no-repeat}
     .final-inner::after{background:linear-gradient(0deg,rgba(28,26,46,.96) 45%,rgba(28,26,46,.6))}
     .final-copy{max-width:100%;padding:40px 26px}
   }
@@ -308,7 +314,6 @@
 <a id="top"></a>
 <section class="hero">
   <img class="hero-bg desktop" src="hero-desktop.png" alt="" />
-  <img class="hero-bg mobile" src="hero-mobile.png" alt="" />
   <div class="hero-copy">
     <div class="wrap">
       <div class="hero-inner reveal">
@@ -329,6 +334,7 @@
       </div>
     </div>
   </div>
+  <div class="hero-art" role="img" aria-label="Jan Suvidha Kendra service counter with banking, recharge, bill, document and travel tiles"></div>
 </section>
 
 <!-- RECEIPT STRIP -->
