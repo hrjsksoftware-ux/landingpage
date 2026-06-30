@@ -18,6 +18,10 @@
 -->
 
 <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<!-- warm up the lead-capture connections so submit is fast -->
+<link rel="preconnect" href="https://rjkgjllpswjfzezrxgpl.supabase.co" crossorigin>
+<link rel="dns-prefetch" href="https://script.google.com">
+<link rel="prefetch" href="thank-you.html">
 <style>
   @font-face{font-family:'Hind';font-weight:400;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-400-normal.woff2) format('woff2')}
   @font-face{font-family:'Hind';font-weight:500;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-500-normal.woff2) format('woff2')}
@@ -591,9 +595,15 @@
       headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON,'Authorization':'Bearer '+CONFIG.SUPABASE_ANON,'Prefer':'return=minimal'},
       body:JSON.stringify(lead)});
   }
+  // Fire-and-forget to Google Sheets. We DON'T wait for it (Apps Script is slow and
+  // no-cors means we can't read its response anyway). keepalive lets the request
+  // finish even after we navigate to the Thank You page, so the form stays fast.
   function toSheet(lead){
-    if(!CONFIG.SHEET_URL || CONFIG.SHEET_URL.indexOf('YOUR-DEPLOYMENT-ID')>-1) return Promise.resolve();
-    return fetch(CONFIG.SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(lead)});
+    if(!CONFIG.SHEET_URL || CONFIG.SHEET_URL.indexOf('YOUR-DEPLOYMENT-ID')>-1) return;
+    try{
+      fetch(CONFIG.SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(lead)});
+    }catch(e){/* ignore - Supabase is the source of truth */}
   }
 
   form.addEventListener('submit',function(ev){
@@ -602,17 +612,25 @@
     formErr.style.display='none';
     submitBtn.disabled=true; spinner.style.display='inline-block'; submitText.textContent='भेज रहे हैं...';
     var lead={name:form.name.value.trim(),phone:form.phone.value.trim(),city:form.city.value.trim(),experience:form.experience.value,source:'landing-page',created_at:new Date().toISOString()};
-    Promise.allSettled([toSupabase(lead),toSheet(lead)]).then(function(results){
-      var anyOk=results.some(function(r){return r.status==='fulfilled';});
-      var configured=(CONFIG.SUPABASE_URL.indexOf('YOUR-PROJECT')===-1)||(CONFIG.SHEET_URL.indexOf('YOUR-DEPLOYMENT-ID')===-1);
-      if(!configured){console.log('Lead captured (demo, no backend wired):',lead);}
-      if(!configured||anyOk){
-        // success -> go to the Thank You page
-        window.location.href='thank-you.html';
-      }else{
-        formErr.style.display='block';submitBtn.disabled=false;spinner.style.display='none';submitText.textContent='मेरी जानकारी भेजें →';
-      }
-    });
+
+    var supaConfigured=CONFIG.SUPABASE_URL.indexOf('YOUR-PROJECT')===-1;
+
+    // Send to Google Sheets immediately, without waiting on it.
+    toSheet(lead);
+
+    // Demo mode (no Supabase wired): show success right away.
+    if(!supaConfigured){ console.log('Lead captured (demo):',lead); window.location.href='thank-you.html'; return; }
+
+    // Wait ONLY for Supabase (fast, reliable). Safety timeout so the user is never stuck.
+    var done=false;
+    function go(){ if(done) return; done=true; window.location.href='thank-you.html'; }
+    function fail(){ if(done) return; done=true; formErr.style.display='block';submitBtn.disabled=false;spinner.style.display='none';submitText.textContent='मेरी जानकारी भेजें →'; }
+
+    var timer=setTimeout(go, 6000); // if Supabase is slow, still send them to Thank You
+    toSupabase(lead).then(function(res){
+      clearTimeout(timer);
+      if(res && res.ok===false){ fail(); } else { go(); }
+    }).catch(function(){ clearTimeout(timer); fail(); });
   });
 </script>
 </body>
