@@ -273,8 +273,9 @@
   @media(max-width:860px){
     .hero{display:block}
     .hero-bg{display:none}                 /* hide the wide desktop banner */
-    .hero-art{display:block;width:100%;height:280px;
-      background:url(hero-mobile.png) center 70% / cover no-repeat}
+    /* show ONLY the lower part of the portrait (the full dukan), anchored to bottom, nothing cut */
+    .hero-art{display:block;width:100%;aspect-ratio:944/720;max-height:62vh;
+      background:url(hero-mobile.png) center bottom / 100% auto no-repeat}
     .hero-copy{position:static;display:block;padding:30px 0 24px}
     .hero-inner{max-width:100%}
     .hero-actions{margin-top:24px}
