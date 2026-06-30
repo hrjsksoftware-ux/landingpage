@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>एडमिन पैनल | जन सुविधा केंद्र</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<style>
+  @font-face{font-family:'Hind';font-weight:400;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-400-normal.woff2) format('woff2')}
+  @font-face{font-family:'Hind';font-weight:600;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-600-normal.woff2) format('woff2')}
+  @font-face{font-family:'Hind';font-weight:700;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-700-normal.woff2) format('woff2')}
+  :root{
+    --navy:#0a2342;--navy-2:#123a6b;--saffron:#ed6c1d;--saffron-dark:#cf5a10;
+    --green:#157a3c;--green-dark:#0f5f2e;--red:#d23b30;--red-dark:#b22e25;
+    --ink:#0a2342;--ink-soft:#42546e;--ink-faint:#7d8da3;
+    --bg:#f4f7fb;--card:#fff;--line:#dde6f0;--soft:#eef3f9;--pill:999px;
+    --font:'Hind','Poppins',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .tricolor{height:4px;background:linear-gradient(90deg,var(--saffron) 0 33.33%,#fff 33.33% 66.66%,var(--green) 66.66% 100%)}
+  a{color:inherit;text-decoration:none}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font);font-size:.96rem;font-weight:700;line-height:1.1;padding:11px 20px;border-radius:var(--pill);border:1.5px solid transparent;cursor:pointer;transition:transform .12s,background .2s,border-color .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn svg{width:16px;height:16px}
+  .btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-2)}
+  .btn-out{background:#fff;border-color:var(--line);color:var(--ink)}.btn-out:hover{border-color:var(--navy)}
+  .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-dark)}
+  .btn-sm{padding:7px 12px;font-size:.86rem}
+  .btn[disabled]{opacity:.55;cursor:not-allowed}
+
+  /* LOGIN */
+  .login-wrap{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .login-card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 30px 70px -34px rgba(11,44,92,.4);max-width:420px;width:100%;padding:38px 32px;position:relative;overflow:hidden}
+  .login-card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--saffron) 0 33.33%,#fff 33.33% 66.66%,var(--green) 66.66% 100%)}
+  .login-card img{height:46px;margin:0 auto 18px;display:block}
+  .login-card h1{font-size:1.5rem;text-align:center;color:var(--navy)}
+  .login-card .sub{text-align:center;color:var(--ink-faint);font-size:.95rem;margin:4px 0 22px}
+  .field{display:grid;gap:6px;margin-bottom:14px}
+  .field label{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+  .field input{width:100%;font-family:var(--font);font-size:1rem;color:var(--ink);padding:13px 15px;border:1.5px solid var(--line);border-radius:11px;background:var(--soft)}
+  .field input:focus{outline:none;border-color:var(--navy-2);background:#fff;box-shadow:0 0 0 3.5px rgba(18,58,107,.15)}
+  .login-err{display:none;background:#fdecea;color:#a4302a;border:1px solid #f4c7c2;border-radius:10px;padding:10px 12px;font-size:.88rem;font-weight:600;margin-bottom:12px}
+
+  /* DASHBOARD */
+  #dash{display:none}
+  .topbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:10}
+  .topbar .in{max-width:1240px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .topbar .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:1.1rem}
+  .topbar .brand .dot{width:34px;height:34px;border-radius:9px;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .topbar .brand .dot img{height:28px}
+  .topbar .who{font-size:.86rem;color:#bcd2ef;margin-right:6px}
+  .wrap{max-width:1240px;margin:0 auto;padding:24px 22px 60px}
+  .stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 22px;min-width:150px}
+  .stat .n{font-size:1.8rem;font-weight:700;color:var(--navy)}
+  .stat:nth-child(2) .n{color:var(--saffron-dark)}.stat:nth-child(3) .n{color:var(--green-dark)}
+  .stat .l{font-size:.86rem;color:var(--ink-soft);font-weight:600}
+  .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .search{flex:1;min-width:220px;position:relative}
+  .search input{width:100%;font-family:var(--font);font-size:1rem;padding:12px 15px 12px 42px;border:1.5px solid var(--line);border-radius:var(--pill);background:#fff}
+  .search input:focus{outline:none;border-color:var(--navy-2);box-shadow:0 0 0 3.5px rgba(18,58,107,.12)}
+  .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink-faint)}
+
+  .table-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 28px -18px rgba(11,44,92,.2)}
+  .table-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:760px}
+  th,td{text-align:left;padding:14px 16px;font-size:.94rem;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--soft);color:var(--ink-soft);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+  tbody tr:hover{background:#fafcfe}
+  td .nm{font-weight:700;color:var(--navy)}
+  td a.ph{color:var(--navy-2);font-weight:600}
+  .badge{display:inline-block;padding:3px 10px;border-radius:var(--pill);font-size:.78rem;font-weight:700;background:var(--soft);color:var(--ink-soft)}
+  .muted{color:var(--ink-faint);font-size:.86rem}
+  .empty{padding:48px 20px;text-align:center;color:var(--ink-faint)}
+  .loading{padding:48px 20px;text-align:center;color:var(--ink-faint)}
+  .row-wa{color:var(--green-dark)}
+
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:var(--pill);font-weight:600;font-size:.94rem;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
+  .toast.show{opacity:1}
+  @media(max-width:600px){.topbar .who{display:none}.stat{flex:1;min-width:0}}
+</style>
+</head>
+<body>
+<div class="tricolor"></div>
+
+<!-- ===== LOGIN ===== -->
+<div class="login-wrap" id="loginWrap">
+  <form class="login-card" id="loginForm">
+    <img src="logo.png" alt="जन सुविधा केंद्र" onerror="this.style.display='none'" />
+    <h1>एडमिन लॉगिन</h1>
+    <p class="sub">लीड्स देखने के लिए लॉगिन करें</p>
+    <div class="login-err" id="loginErr">ईमेल या पासवर्ड गलत है।</div>
+    <div class="field"><label for="email">ईमेल</label><input id="email" type="email" autocomplete="username" required placeholder="admin@example.com" /></div>
+    <div class="field"><label for="password">पासवर्ड</label><input id="password" type="password" autocomplete="current-password" required placeholder="••••••••" /></div>
+    <button class="btn btn-navy" type="submit" id="loginBtn" style="width:100%;margin-top:6px">लॉगिन करें</button>
+  </form>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dash">
+  <div class="topbar">
+    <div class="in">
+      <div class="brand"><span class="dot"><img src="logo-mark.png" alt="" onerror="this.style.display='none'"/></span> लीड्स पैनल</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="who" id="whoami"></span>
+        <button class="btn btn-out btn-sm" id="refreshBtn">रिफ्रेश</button>
+        <button class="btn btn-out btn-sm" id="csvBtn">CSV डाउनलोड</button>
+        <button class="btn btn-out btn-sm" id="logoutBtn">लॉगआउट</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="n" id="stTotal">0</div><div class="l">कुल लीड्स</div></div>
+      <div class="stat"><div class="n" id="stToday">0</div><div class="l">आज</div></div>
+      <div class="stat"><div class="n" id="stWeek">0</div><div class="l">इस हफ़्ते</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" placeholder="नाम, नंबर या शहर खोजें..." />
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>#</th><th>नाम</th><th>मोबाइल</th><th>शहर / ज़िला</th><th>दुकान</th><th>दिनांक</th><th></th></tr>
+          </thead>
+          <tbody id="rows"><tr><td colspan="7" class="loading">लोड हो रहा है...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  // ---- Supabase config (same project as the landing page) ----
+  const SUPABASE_URL  = "https://rjkgjllpswjfzezrxgpl.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqa2dqbGxwc3dqZnplenJ4Z3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTc3NDcsImV4cCI6MjA5ODM5Mzc0N30.eDJB5lspuiSlnyN-Izyf92iJxF4PQ35NVIsn7m27GOQ";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  const $ = (id) => document.getElementById(id);
+  const loginWrap=$('loginWrap'), dash=$('dash'), loginForm=$('loginForm'), loginErr=$('loginErr'), loginBtn=$('loginBtn');
+  let allLeads = [];
+
+  function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+  // ---- show dashboard if already logged in ----
+  async function checkSession(){
+    const { data:{ session } } = await supabase.auth.getSession();
+    if(session){ showDash(session.user.email); loadLeads(); }
+    else { loginWrap.style.display='flex'; dash.style.display='none'; }
+  }
+  function showDash(email){ loginWrap.style.display='none'; dash.style.display='block'; $('whoami').textContent=email||''; }
+
+  // ---- login ----
+  loginForm.addEventListener('submit', async (e)=>{
+    e.preventDefault(); loginErr.style.display='none'; loginBtn.disabled=true; loginBtn.textContent='लॉगिन हो रहा है...';
+    const { error } = await supabase.auth.signInWithPassword({ email:$('email').value.trim(), password:$('password').value });
+    loginBtn.disabled=false; loginBtn.textContent='लॉगिन करें';
+    if(error){ loginErr.textContent='ईमेल या पासवर्ड गलत है।'; loginErr.style.display='block'; return; }
+    const { data:{ user } } = await supabase.auth.getUser();
+    showDash(user?.email); loadLeads();
+  });
+
+  // ---- logout ----
+  $('logoutBtn').addEventListener('click', async ()=>{ await supabase.auth.signOut(); location.reload(); });
+  $('refreshBtn').addEventListener('click', ()=>loadLeads());
+
+  // ---- load leads ----
+  async function loadLeads(){
+    $('rows').innerHTML='<tr><td colspan="7" class="loading">लोड हो रहा है...</td></tr>';
+    const { data, error } = await supabase.from('leads').select('*').order('created_at',{ascending:false});
+    if(error){ $('rows').innerHTML='<tr><td colspan="7" class="empty">लीड्स लोड नहीं हुईं: '+error.message+'</td></tr>'; return; }
+    allLeads = data || [];
+    updateStats(); render(allLeads);
+  }
+
+  function updateStats(){
+    const now=new Date(), startToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const weekAgo=new Date(now.getTime()-7*864e5);
+    $('stTotal').textContent=allLeads.length;
+    $('stToday').textContent=allLeads.filter(l=>new Date(l.created_at)>=startToday).length;
+    $('stWeek').textContent=allLeads.filter(l=>new Date(l.created_at)>=weekAgo).length;
+  }
+
+  function fmtDate(s){ const d=new Date(s); return d.toLocaleDateString('hi-IN',{day:'2-digit',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('hi-IN',{hour:'2-digit',minute:'2-digit'}); }
+  function esc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+  function render(list){
+    if(!list.length){ $('rows').innerHTML='<tr><td colspan="7" class="empty">कोई लीड नहीं मिली।</td></tr>'; return; }
+    $('rows').innerHTML = list.map((l,i)=>`
+      <tr data-id="${l.id}">
+        <td class="muted">${i+1}</td>
+        <td><span class="nm">${esc(l.name)}</span></td>
+        <td><a class="ph" href="tel:+91${esc(l.phone)}">${esc(l.phone)}</a>
+            <a class="row-wa" href="https://wa.me/91${esc(l.phone)}" target="_blank" title="WhatsApp" style="margin-left:8px">WA</a></td>
+        <td>${esc(l.city)||'<span class="muted">-</span>'}</td>
+        <td><span class="badge">${esc(l.experience)||'-'}</span></td>
+        <td class="muted">${fmtDate(l.created_at)}</td>
+        <td><button class="btn btn-red btn-sm" data-del="${l.id}">हटाएँ</button></td>
+      </tr>`).join('');
+  }
+
+  // ---- search ----
+  $('searchInput').addEventListener('input', (e)=>{
+    const q=e.target.value.trim().toLowerCase();
+    render(allLeads.filter(l => (l.name||'').toLowerCase().includes(q) || (l.phone||'').includes(q) || (l.city||'').toLowerCase().includes(q)));
+  });
+
+  // ---- delete (event delegation) ----
+  $('rows').addEventListener('click', async (e)=>{
+    const btn=e.target.closest('[data-del]'); if(!btn) return;
+    const id=btn.getAttribute('data-del');
+    if(!confirm('क्या आप वाकई इस लीड को हटाना चाहते हैं?')) return;
+    btn.disabled=true; btn.textContent='हट रहा है...';
+    const { error } = await supabase.from('leads').delete().eq('id', id);
+    if(error){ alert('हटाने में दिक्कत: '+error.message); btn.disabled=false; btn.textContent='हटाएँ'; return; }
+    allLeads = allLeads.filter(l=>String(l.id)!==String(id));
+    updateStats();
+    const q=$('searchInput').value.trim().toLowerCase();
+    render(allLeads.filter(l => (l.name||'').toLowerCase().includes(q) || (l.phone||'').includes(q) || (l.city||'').toLowerCase().includes(q)));
+    toast('लीड हटा दी गई');
+  });
+
+  // ---- CSV download ----
+  $('csvBtn').addEventListener('click', ()=>{
+    if(!allLeads.length){ toast('कोई लीड नहीं'); return; }
+    const cols=['name','phone','city','experience','source','created_at'];
+    const head=['नाम','मोबाइल','शहर','दुकान','सोर्स','दिनांक'];
+    const csv=[head.join(',')].concat(allLeads.map(l=>cols.map(c=>'"'+String(l[c]??'').replace(/"/g,'""')+'"').join(','))).join('\n');
+    const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='leads.csv'; a.click();
+  });
+
+  checkSession();
+</script>
+</body>
+</html>

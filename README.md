@@ -42,6 +42,19 @@ If at least one succeeds, the user sees the "Dhanyavaad!" success state.
 ### 3. Contact number
 Replace `+919990143166` / `919990143166` throughout `index.html` with the real number.
 
+## Admin panel (`/admin.html`)
+A password-protected dashboard to view, search, delete and export leads.
+
+Setup (one time):
+1. Run `backend/admin-policies.sql` in Supabase SQL Editor (adds read/delete policies
+   for logged-in users; the public can still only insert).
+2. Supabase Dashboard → **Authentication → Users → Add user** → enter your email +
+   password, tick **Auto Confirm User**.
+3. Open `/admin.html`, log in with that email + password.
+
+Features: lead table (newest first), live search (name/phone/city), one-click delete,
+CSV export, and quick call/WhatsApp links per lead.
+
 ## Run / preview
 Just open `index.html` in a browser. Until the CONFIG values are filled it runs in
 **demo mode** (logs the lead to the console and still shows the success screen).
