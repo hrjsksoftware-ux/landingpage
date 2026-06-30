@@ -554,8 +554,8 @@
      CONFIG — fill these before going live
      ============================================================ */
   var CONFIG = {
-    SUPABASE_URL:  "https://YOUR-PROJECT.supabase.co",
-    SUPABASE_ANON: "YOUR-SUPABASE-ANON-KEY",
+    SUPABASE_URL:  "https://rjkgjllpswjfzezrxgpl.supabase.co",
+    SUPABASE_ANON: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqa2dqbGxwc3dqZnplenJ4Z3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTc3NDcsImV4cCI6MjA5ODM5Mzc0N30.eDJB5lspuiSlnyN-Izyf92iJxF4PQ35NVIsn7m27GOQ",
     SUPABASE_TABLE:"leads",
     SHEET_URL:     "https://script.google.com/macros/s/YOUR-DEPLOYMENT-ID/exec"
   };
@@ -606,8 +606,12 @@
       var anyOk=results.some(function(r){return r.status==='fulfilled';});
       var configured=(CONFIG.SUPABASE_URL.indexOf('YOUR-PROJECT')===-1)||(CONFIG.SHEET_URL.indexOf('YOUR-DEPLOYMENT-ID')===-1);
       if(!configured){console.log('Lead captured (demo, no backend wired):',lead);}
-      if(!configured||anyOk){formWrap.style.display='none';formSuccess.style.display='block';}
-      else{formErr.style.display='block';submitBtn.disabled=false;spinner.style.display='none';submitText.textContent='मेरी जानकारी भेजें →';}
+      if(!configured||anyOk){
+        // success -> go to the Thank You page
+        window.location.href='thank-you.html';
+      }else{
+        formErr.style.display='block';submitBtn.disabled=false;spinner.style.display='none';submitText.textContent='मेरी जानकारी भेजें →';
+      }
     });
   });
 </script>
