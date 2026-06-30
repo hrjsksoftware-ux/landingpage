@@ -98,13 +98,10 @@
   .hero-banner{background:var(--soft)}
   .banner-link{display:block;width:100%;border:0;padding:0;margin:0;background:none;cursor:pointer;position:relative;line-height:0;overflow:hidden}
   .banner-link img{width:100%;height:auto;display:block;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-  .banner-link:hover img{transform:scale(1.015)}
-  .banner-desktop{display:block} .banner-mobile{display:none}
-  /* subtle "click me" hint chip */
-  .banner-hint{position:absolute;right:18px;bottom:18px;z-index:2;display:inline-flex;align-items:center;gap:6px;background:var(--saffron);color:#fff;font-family:var(--body);font-weight:700;font-size:.96rem;line-height:1;padding:12px 18px;border-radius:var(--pill);box-shadow:0 12px 26px -10px rgba(237,108,29,.6);animation:hintPulse 2.2s ease-in-out infinite}
-  @keyframes hintPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .banner-link:hover img{transform:scale(1.01)}
   .banner-link:focus-visible{outline:3px solid var(--navy-2);outline-offset:-3px}
-  @media(prefers-reduced-motion:reduce){.banner-hint{animation:none}.banner-link:hover img{transform:none}}
+  .banner-hint{display:none}
+  @media(prefers-reduced-motion:reduce){.banner-link:hover img{transform:none}}
 
   /* receipt strip */
   .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
@@ -286,13 +283,10 @@
     .final-copy{max-width:74%}
   }
   @media(max-width:860px){
-    /* swap to the vertical/portrait banner image on phones */
-    .banner-desktop{display:none} .banner-mobile{display:block}
     .final-inner::after{background:linear-gradient(0deg,rgba(11,44,92,.96) 45%,rgba(11,44,92,.6))}
     .final-copy{max-width:100%;padding:40px 26px}
   }
   @media(max-width:600px){
-    .banner-hint{right:12px;bottom:12px;font-size:.86rem;padding:10px 14px}
     .svc-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr;gap:28px}section.block{padding:58px 0}
     .sec-head h2{font-size:1.85rem}.final h2{font-size:1.8rem}
@@ -336,9 +330,7 @@
 <a id="top"></a>
 <section class="hero-banner">
   <button class="banner-link" data-open-form aria-label="अपना जन सुविधा केंद्र खोलने के लिए फ़ॉर्म भरें">
-    <img class="banner-desktop" src="hero-desktop.png" alt="अपना खुद का जन सुविधा केंद्र खोलें - 100+ सेवाएँ एक ही जगह" />
-    <img class="banner-mobile" src="hero-mobile.png" alt="अपना खुद का जन सुविधा केंद्र खोलें - 100+ सेवाएँ एक ही जगह" />
-    <span class="banner-hint">अभी अप्लाई करें →</span>
+    <img src="hero-desktop.png" alt="अपना जन सुविधा केंद्र खोलें - कम निवेश, अच्छी कमाई, डिजिटल सेवाएँ। WhatsApp 9509437761" />
   </button>
 </section>
 
