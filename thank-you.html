@@ -1,71 +1,302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hi">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>धन्यवाद! | जन सुविधा केंद्र</title>
-<meta name="description" content="आपकी जानकारी मिल गई है। हमारी टीम जल्द ही आपको कॉल करेगी।" />
-<meta name="robots" content="noindex" />
-<link rel="icon" type="image/png" href="favicon.png" />
-<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-<style>
-  @font-face{font-family:'Hind';font-weight:400;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-400-normal.woff2) format('woff2')}
-  @font-face{font-family:'Hind';font-weight:600;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-600-normal.woff2) format('woff2')}
-  @font-face{font-family:'Hind';font-weight:700;font-display:swap;src:url(https://fonts.bunny.net/hind/files/hind-devanagari-700-normal.woff2) format('woff2')}
-  :root{
-    --navy:#0a2342;--navy-2:#123a6b;--saffron:#ed6c1d;--saffron-dark:#cf5a10;
-    --green:#157a3c;--green-dark:#0f5f2e;--wa:#157a3c;--ink:#0a2342;--ink-soft:#42546e;
-    --soft:#f4f7fb;--line:#dde6f0;--pill:999px;
-    --font:'Hind','Poppins',system-ui,-apple-system,sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--font);background:var(--soft);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column}
-  .tricolor{height:4px;background:linear-gradient(90deg,var(--saffron) 0 33.33%,#fff 33.33% 66.66%,var(--green) 66.66% 100%)}
-  .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 22px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:0 30px 70px -34px rgba(11,44,92,.4);max-width:560px;width:100%;text-align:center;padding:48px 36px;position:relative;overflow:hidden}
-  .card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--saffron) 0 33.33%,#fff 33.33% 66.66%,var(--green) 66.66% 100%)}
-  .logo{height:48px;width:auto;margin:0 auto 26px}
-  .tick{width:96px;height:96px;margin:0 auto 22px;border-radius:50%;background:#e6f3ea;color:var(--green-dark);display:grid;place-items:center;animation:pop .5s cubic-bezier(.16,1,.3,1)}
-  .tick svg{width:50px;height:50px;animation:draw .6s ease .15s both}
-  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-  @keyframes draw{from{stroke-dashoffset:40}to{stroke-dashoffset:0}}
-  h1{font-weight:700;font-size:2.2rem;color:var(--navy);letter-spacing:0}
-  .sub{color:var(--ink-soft);font-size:1.14rem;margin-top:12px}
-  .info{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:24px;font-size:1.04rem;font-weight:600;color:var(--navy)}
-  .info b{color:var(--saffron-dark)}
-  .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-size:1.04rem;font-weight:700;line-height:1.1;padding:15px 26px;border-radius:var(--pill);border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s,background .2s}
-  .btn:active{transform:translateY(1px)}
-  .btn svg{width:19px;height:19px;flex:none}
-  .btn-wa{background:var(--wa);color:#fff}.btn-wa:hover{background:var(--green-dark);transform:translateY(-2px)}
-  .btn-out{background:#fff;border-color:var(--line);color:var(--ink)}.btn-out:hover{border-color:var(--navy);transform:translateY(-2px)}
-  .small{margin-top:22px;font-size:.92rem;color:var(--ink-soft)}
-  .small a{color:var(--saffron-dark);font-weight:700;text-decoration:none}
-  footer{text-align:center;padding:20px;font-size:.84rem;color:var(--ink-soft)}
-  @media(max-width:520px){.card{padding:38px 24px}h1{font-size:1.8rem}.sub{font-size:1.04rem}}
-</style>
-</head>
-<body>
-<div class="tricolor"></div>
-<div class="wrap">
-  <div class="card">
-    <img class="logo" src="logo.png" alt="जन सुविधा केंद्र" onerror="this.style.display='none'" />
-    <div class="tick">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:40"><polyline points="20 6 9 17 4 12"/></svg>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>धन्यवाद! | जन सुविधा केंद्र</title>
+    <meta
+      name="description"
+      content="आपकी जानकारी मिल गई है। हमारी टीम जल्द ही आपको कॉल करेगी।"
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <style>
+      @font-face {
+        font-family: "Hind";
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.bunny.net/hind/files/hind-devanagari-400-normal.woff2)
+          format("woff2");
+      }
+      @font-face {
+        font-family: "Hind";
+        font-weight: 600;
+        font-display: swap;
+        src: url(https://fonts.bunny.net/hind/files/hind-devanagari-600-normal.woff2)
+          format("woff2");
+      }
+      @font-face {
+        font-family: "Hind";
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.bunny.net/hind/files/hind-devanagari-700-normal.woff2)
+          format("woff2");
+      }
+      :root {
+        --navy: #0a2342;
+        --navy-2: #123a6b;
+        --saffron: #ed6c1d;
+        --saffron-dark: #cf5a10;
+        --green: #157a3c;
+        --green-dark: #0f5f2e;
+        --wa: #157a3c;
+        --ink: #0a2342;
+        --ink-soft: #42546e;
+        --soft: #f4f7fb;
+        --line: #dde6f0;
+        --pill: 999px;
+        --font: "Hind", "Poppins", system-ui, -apple-system, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--soft);
+        color: var(--ink);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+      .tricolor {
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--saffron) 0 33.33%,
+          #fff 33.33% 66.66%,
+          var(--green) 66.66% 100%
+        );
+      }
+      .wrap {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 22px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        box-shadow: 0 30px 70px -34px rgba(11, 44, 92, 0.4);
+        max-width: 560px;
+        width: 100%;
+        text-align: center;
+        padding: 48px 36px;
+        position: relative;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--saffron) 0 33.33%,
+          #fff 33.33% 66.66%,
+          var(--green) 66.66% 100%
+        );
+      }
+      .logo {
+        height: 48px;
+        width: auto;
+        margin: 0 auto 26px;
+      }
+      .tick {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 22px;
+        border-radius: 50%;
+        background: #e6f3ea;
+        color: var(--green-dark);
+        display: grid;
+        place-items: center;
+        animation: pop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .tick svg {
+        width: 50px;
+        height: 50px;
+        animation: draw 0.6s ease 0.15s both;
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.6);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes draw {
+        from {
+          stroke-dashoffset: 40;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      h1 {
+        font-weight: 700;
+        font-size: 2.2rem;
+        color: var(--navy);
+        letter-spacing: 0;
+      }
+      .sub {
+        color: var(--ink-soft);
+        font-size: 1.14rem;
+        margin-top: 12px;
+      }
+      .info {
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 24px;
+        font-size: 1.04rem;
+        font-weight: 600;
+        color: var(--navy);
+      }
+      .info b {
+        color: var(--saffron-dark);
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 26px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        font-family: var(--font);
+        font-size: 1.04rem;
+        font-weight: 700;
+        line-height: 1.1;
+        padding: 15px 26px;
+        border-radius: var(--pill);
+        border: 1.5px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.15s,
+          background 0.2s;
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn svg {
+        width: 19px;
+        height: 19px;
+        flex: none;
+      }
+      .btn-wa {
+        background: var(--wa);
+        color: #fff;
+      }
+      .btn-wa:hover {
+        background: var(--green-dark);
+        transform: translateY(-2px);
+      }
+      .btn-out {
+        background: #fff;
+        border-color: var(--line);
+        color: var(--ink);
+      }
+      .btn-out:hover {
+        border-color: var(--navy);
+        transform: translateY(-2px);
+      }
+      .small {
+        margin-top: 22px;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+      }
+      .small a {
+        color: var(--saffron-dark);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.84rem;
+        color: var(--ink-soft);
+      }
+      @media (max-width: 520px) {
+        .card {
+          padding: 38px 24px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+        .sub {
+          font-size: 1.04rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tricolor"></div>
+    <div class="wrap">
+      <div class="card">
+        <img
+          class="logo"
+          src="logo.png"
+          alt="जन सुविधा केंद्र"
+          onerror="this.style.display = 'none'"
+        />
+        <div class="tick">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            style="stroke-dasharray: 40"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <h1>धन्यवाद!</h1>
+        <p class="sub">
+          आपकी जानकारी हमें मिल गई है। हमारी टीम जल्द ही आपको कॉल करेगी।
+        </p>
+        <div class="info">
+          तुरंत बात करनी है? हमें WhatsApp करें: <b>9509437761</b>
+        </div>
+        <div class="actions">
+          <a
+            class="btn btn-wa"
+            href="https://wa.me/919509437761?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20%E0%A4%AE%E0%A5%88%E0%A4%82%E0%A4%A8%E0%A5%87%20%E0%A4%85%E0%A4%AD%E0%A5%80%20%E0%A4%AB%E0%A4%BC%E0%A5%89%E0%A4%B0%E0%A5%8D%E0%A4%AE%20%E0%A4%AD%E0%A4%B0%E0%A4%BE%20%E0%A4%B9%E0%A5%88%E0%A5%A4"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.965-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+              />
+            </svg>
+            WhatsApp पर बात करें
+          </a>
+          <a class="btn btn-out" href="index.html">होम पेज पर जाएँ</a>
+        </div>
+        <p class="small">
+          कॉल का इंतज़ार करें या हेल्पलाइन पर संपर्क करें:
+          <a href="tel:+919509437761">+91 95094 37761</a>
+        </p>
+      </div>
     </div>
-    <h1>धन्यवाद!</h1>
-    <p class="sub">आपकी जानकारी हमें मिल गई है। हमारी टीम जल्द ही आपको कॉल करेगी।</p>
-    <div class="info">तुरंत बात करनी है? हमें WhatsApp करें: <b>9509437761</b></div>
-    <div class="actions">
-      <a class="btn btn-wa" href="https://wa.me/919509437761?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20%E0%A4%AE%E0%A5%88%E0%A4%82%E0%A4%A8%E0%A5%87%20%E0%A4%85%E0%A4%AD%E0%A5%80%20%E0%A4%AB%E0%A4%BC%E0%A5%89%E0%A4%B0%E0%A5%8D%E0%A4%AE%20%E0%A4%AD%E0%A4%B0%E0%A4%BE%20%E0%A4%B9%E0%A5%88%E0%A5%A4" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.523 5.26l-.999 3.648 3.965-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        WhatsApp पर बात करें
-      </a>
-      <a class="btn btn-out" href="index.html">होम पेज पर जाएँ</a>
-    </div>
-    <p class="small">कॉल का इंतज़ार करें या हेल्पलाइन पर संपर्क करें: <a href="tel:+919509437761">+91 95094 37761</a></p>
-  </div>
-</div>
-<footer>© जन सुविधा केंद्र · आपका घर आपकी दुकान</footer>
-</body>
+    <footer>© जन सुविधा केंद्र · आपका घर आपकी दुकान</footer>
+  </body>
 </html>
